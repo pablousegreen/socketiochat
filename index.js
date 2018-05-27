@@ -1,3 +1,4 @@
+//this file and its actions figures like server
 console.log('in Server');
 const path = require('path');
 const express  = require('express');
@@ -21,13 +22,16 @@ const SocketIO = require('socket.io');
 const io =SocketIO.listen(server);
 
 //websockets
+//1rst Linten
 io.on('connection', (socket)=>{
     console.log('new connection', socket.id);
     socket.on('chat:message', (data)=>{
         console.log(data);
+        //2nd Emit the message that was got
         io.sockets.emit('chat:message',data);
     });
 
+    //3rth Listen the message
     socket.on('chat:typing', (data)=>{
         console.log(data);
         socket.broadcast.emit('chat:typing', data);
